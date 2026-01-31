@@ -36,6 +36,15 @@ public class AnalyticsController {
         return ResponseEntity.ok(ApiResponse.success(stats));
     }
 
+    @GetMapping("/user")
+    @Operation(summary = "Get current user statistics", description = "Retrieve analytics for the currently authenticated user")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getCurrentUserStatistics() {
+        com.taskmanagement.security.UserPrincipal currentUser = com.taskmanagement.util.SecurityUtils
+                .getCurrentUserPrincipal();
+        Map<String, Object> stats = analyticsService.getUserStatistics(currentUser.getUser().getId());
+        return ResponseEntity.ok(ApiResponse.success(stats));
+    }
+
     @GetMapping("/overall")
     @Operation(summary = "Get overall statistics", description = "Retrieve overall system analytics")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getOverallStatistics() {

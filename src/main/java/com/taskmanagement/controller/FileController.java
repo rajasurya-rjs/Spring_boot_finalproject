@@ -43,6 +43,16 @@ public class FileController {
         return ResponseEntity.ok(ApiResponse.success(fileDocument));
     }
 
+    @GetMapping
+    @Operation(summary = "Get all files", description = "Retrieve all files with pagination")
+    public ResponseEntity<ApiResponse<org.springframework.data.domain.Page<FileDocument>>> getAllFiles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
+        org.springframework.data.domain.Page<FileDocument> files = fileStorageService.getAllFiles(pageable);
+        return ResponseEntity.ok(ApiResponse.success(files));
+    }
+
     @GetMapping("/task/{taskId}")
     @Operation(summary = "Get files by task", description = "Retrieve all files attached to a task")
     public ResponseEntity<ApiResponse<List<FileDocument>>> getFilesByTask(@PathVariable String taskId) {

@@ -4,6 +4,7 @@ import com.taskmanagement.dto.AuthResponse;
 import com.taskmanagement.dto.LoginRequest;
 import com.taskmanagement.dto.RegisterRequest;
 import com.taskmanagement.exception.BadRequestException;
+import com.taskmanagement.exception.ResourceNotFoundException;
 import com.taskmanagement.model.Role;
 import com.taskmanagement.model.User;
 import com.taskmanagement.repository.UserRepository;

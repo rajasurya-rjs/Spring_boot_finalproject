@@ -103,6 +103,11 @@ public class FileStorageService {
         return fileDocumentRepository.findByTaskId(taskId);
     }
 
+    public org.springframework.data.domain.Page<FileDocument> getAllFiles(
+            org.springframework.data.domain.Pageable pageable) {
+        return fileDocumentRepository.findAll(pageable);
+    }
+
     @Transactional
     public void deleteFile(String id) {
         FileDocument fileDocument = fileDocumentRepository.findById(id)

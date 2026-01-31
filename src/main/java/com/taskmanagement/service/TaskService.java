@@ -249,8 +249,10 @@ public class TaskService {
         response.setId(task.getId());
         response.setTitle(task.getTitle());
         response.setDescription(task.getDescription());
-        response.setProjectId(task.getProject().getId());
-        response.setProjectName(task.getProject().getName());
+        if (task.getProject() != null) {
+            response.setProjectId(task.getProject().getId());
+            response.setProjectName(task.getProject().getName());
+        }
         response.setStatus(task.getStatus());
         response.setPriority(task.getPriority());
         response.setDueDate(task.getDueDate());
