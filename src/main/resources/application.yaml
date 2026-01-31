@@ -1,0 +1,90 @@
+spring:
+  application:
+    name: task-management-system
+  
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/task_db
+      auto-index-creation: true
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:rajasuryadevtest1234@gmail.com}
+    password: ${MAIL_PASSWORD:jagadeesan123@}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+  
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+    consumer:
+      group-id: task-management-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+  
+  cache:
+    type: simple
+    cache-names:
+      - projects
+      - tasks
+      - users
+  
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+application:
+  jwt:
+    secret: ${JWT_SECRET:YourSuperSecretKeyThatIsAtLeast256BitsLongForHS256Algorithm}
+    expiration: ${JWT_EXPIRATION:86400000}
+  
+  file:
+    upload-dir: ${user.home}/task-management-uploads
+  
+  rate-limit:
+    requests-per-second: 10
+  
+  external-api:
+    currency-exchange-url: https://api.exchangerate.host
+  
+  kafka:
+    topics:
+      task-events: task-events
+      notification-events: notification-events
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.taskmanagement: INFO
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.security: DEBUG
